@@ -351,3 +351,12 @@ h1, h2, h3, h4, .chip, .tag, .go-btn, .claim, .cat, .state, .member span { lette
 .tabbar .fab:active { transform: scale(.92) rotate(90deg); }
 .tabbar.hide { transform: translateY(160%); }
 .chip { flex: none; white-space: nowrap; }
+
+/* pill bar v2: thinner, full width, scan button centred with a quarter above the bar */
+.tabbar { left: 16px; right: 16px; height: 56px; padding: 6px 12px; bottom: 20px; border-radius: 28px; }
+.tabbar .gap { display: block; width: 56px; }
+.tabbar button:not(.fab) { width: 44px; height: 44px; }
+.tabbar .ic { width: 21px; height: 21px; }
+.tabbar .fab { left: 50%; top: -13px; width: 52px; height: 52px; transform: translateX(-50%);
+  box-shadow: 0 0 0 4px #fff, 0 10px 18px rgba(31, 79, 216, .4); }
+.tabbar .fab:active { transform: translateX(-50%) scale(.92) rotate(90deg); }
