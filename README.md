@@ -17,3 +17,6 @@ Plain HTML/CSS/JS, no build step. Serve the folder with any static server, e.g.
 ```bash
 npx http-server .
 ```
+
+## Style
+"Stamp-collectible" UI: clean white ground, chunky heavy display type, saturated flat tints (blue / red / yellow / green) with light tinted fills, soft blue-tinted shadows and dashed perforation lines. 图鉴 cards are square polaroids; tap to flip and read the function on the back.

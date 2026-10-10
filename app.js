@@ -29,7 +29,7 @@
     screens.forEach(s => s.classList.toggle("is-active", s.dataset.screen === name));
     const isTab = ["map", "tasks", "cards", "me"].includes(name);
     tabbar.classList.toggle("hide", !isTab);
-    $("button[data-tab]", tabbar).forEach(b => b.classList.toggle("is-on", b.dataset.tab === name));
+    $$("button[data-tab]", tabbar).forEach(b => b.classList.toggle("is-on", b.dataset.tab === name));
     if (name === "tasks" && typeof animateRing === "function") animateRing();
     $(".fab").style.display = isTab ? "" : "none";
   }
@@ -99,13 +99,21 @@
 
   /* ---------- cards ---------- */
   const grid = $("#cardGrid");
+  const FUNCS = ["识别鸟类", "记录足迹", "解锁成就"];
   for (let i = 0; i < 6; i++) {
-    const b = document.createElement("button");
-    b.style.animationDelay = i * 60 + "ms";
-    b.className = LOCKED.has(i) ? "locked" : "";
-    b.innerHTML = `<img src="assets/card-img.png" alt="道具卡 生态循环">` + (LOCKED.has(i) ? `<span class="lock">未获得</span>` : "");
-    b.addEventListener("click", () => show("detail"));
-    grid.appendChild(b);
+    const locked = LOCKED.has(i);
+    const d = document.createElement("div");
+    d.className = "pola" + (locked ? " locked" : "");
+    d.tabIndex = 0; d.setAttribute("role", "button");
+    d.style.animationDelay = i * 60 + "ms";
+    d.innerHTML = `<div class="inner">
+      <div class="face front"><div class="ph"><svg class="ic"><use href="#i-image"/></svg></div><div class="cap">${locked ? "???" : "生态循环"}</div></div>
+      <div class="face back"><h4>功能</h4><ul>${FUNCS.map(f => "<li>" + f + "</li>").join("")}</ul>${locked ? "" : '<span class="more" data-more>详情 ›</span>'}</div>
+    </div>`;
+    const flip = () => d.classList.toggle("flipped");
+    d.addEventListener("click", e => e.target.closest("[data-more]") ? show("detail") : flip());
+    d.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+    grid.appendChild(d);
   }
   $("#catRow").addEventListener("click", e => {
     const c = e.target.closest(".cat"); if (!c) return;
