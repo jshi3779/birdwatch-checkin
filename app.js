@@ -99,22 +99,35 @@
 
   /* ---------- cards ---------- */
   const grid = $("#cardGrid");
-  const FUNCS = ["识别鸟类", "记录足迹", "解锁成就"];
-  for (let i = 0; i < 6; i++) {
+  const CARDS = [
+    { name: "生态循环", shape: "ticket",  color: "sky",   funcs: ["识别鸟类", "记录足迹", "解锁成就"] },
+    { name: "候鸟迁徙", shape: "scallop", color: "ink",   funcs: ["迁徙路线", "季节提醒", "分享打卡"] },
+    { name: "湿地守望", shape: "stamp",   color: "paper", funcs: ["水质监测", "栖息地图", "守护任务"] },
+    { name: "林间歌者", shape: "scallop", color: "leaf",  funcs: ["鸣声识别", "录音收藏", "声谱对比"] },
+    { name: "城市挚友", shape: "ticket",  color: "coral", funcs: ["城市观鸟", "好友同行", "每日挑战"] },
+    { name: "未解锁",   shape: "stamp",   color: "paper", funcs: ["???", "???", "???"] },
+  ];
+  CARDS.forEach((c, i) => {
     const locked = LOCKED.has(i);
     const d = document.createElement("div");
-    d.className = "pola" + (locked ? " locked" : "");
-    d.tabIndex = 0; d.setAttribute("role", "button");
+    d.className = `pola v-${c.shape} c-${c.color}` + (locked ? " locked" : "");
+    d.tabIndex = 0; d.setAttribute("role", "button"); d.setAttribute("aria-label", c.name);
     d.style.animationDelay = i * 60 + "ms";
+    const no = String(i + 1).padStart(2, "0");
     d.innerHTML = `<div class="inner">
-      <div class="face front"><div class="ph"><svg class="ic"><use href="#i-image"/></svg></div><div class="cap">${locked ? "???" : "生态循环"}</div></div>
-      <div class="face back"><h4>功能</h4><ul>${FUNCS.map(f => "<li>" + f + "</li>").join("")}</ul>${locked ? "" : '<span class="more" data-more>详情 ›</span>'}</div>
+      <div class="face front"><div class="shape"><div class="panel">
+        <span class="name">${c.name}</span><span class="sub">道具卡</span>
+        <div class="ph"><svg class="ic"><use href="#i-image"/></svg></div>
+        <span class="date">NO.${no}</span></div></div><span class="badge">#${i + 1}</span></div>
+      <div class="face back"><div class="shape"><div class="panel">
+        <h4>功能</h4><ul>${c.funcs.map(f => "<li>" + f + "</li>").join("")}</ul>
+        ${locked ? "" : '<span class="more" data-more>详情 ›</span>'}</div></div></div>
     </div>`;
     const flip = () => d.classList.toggle("flipped");
     d.addEventListener("click", e => e.target.closest("[data-more]") ? show("detail") : flip());
     d.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
     grid.appendChild(d);
-  }
+  });
   $("#catRow").addEventListener("click", e => {
     const c = e.target.closest(".cat"); if (!c) return;
     $$("#catRow .cat").forEach(x => x.classList.toggle("is-on", x === c));

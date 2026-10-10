@@ -283,26 +283,56 @@ h1, h2, h3, h4, .chip, .tag, .go-btn, .claim, .cat, .state, .member span { lette
 .found-card { box-shadow: 0 10px 40px rgba(31, 79, 216, .35); }
 .next-btn { background: var(--blue); }
 
-/* ---------- polaroid cards (图鉴) ---------- */
-.card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px 10px; }
-.pola { --t: var(--blue-t); --c: var(--blue); --r: -1.5deg; aspect-ratio: 1; perspective: 700px; cursor: pointer; animation: rise .35s both; -webkit-tap-highlight-color: transparent; }
-.pola:nth-child(2) { --t: var(--red-t); --c: var(--red); --r: 2deg; }
-.pola:nth-child(3) { --t: var(--yel-t); --c: #b97b00; --r: -1.5deg; }
-.pola:nth-child(4) { --t: var(--grn-t); --c: var(--grn); --r: 1.5deg; }
-.pola:nth-child(5) { --t: var(--blue-t); --c: var(--blue); --r: -2deg; }
-.pola:nth-child(6) { --t: var(--red-t); --c: var(--red); --r: 1deg; }
-.pola .inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transform: rotate(var(--r)) rotateY(0);
-  transition: transform .6s cubic-bezier(.3, 1.25, .5, 1); }
-.pola.flipped .inner { transform: rotate(var(--r)) rotateY(180deg); }
-.pola .face { position: absolute; inset: 0; border-radius: 9px; background: #fff; backface-visibility: hidden; -webkit-backface-visibility: hidden;
-  box-shadow: var(--shadow-stamp); display: flex; flex-direction: column; padding: 6px 6px 0; }
-.pola .ph { flex: 1; min-height: 0; border-radius: 4px; background: var(--t); display: grid; place-items: center; color: var(--c);
-  border: 2px dashed color-mix(in srgb, var(--c) 35%, transparent); }
-.pola .ph .ic { width: 26px; height: 26px; opacity: .8; }
-.pola .cap { height: 26px; display: grid; place-items: center; font-size: 11px; font-weight: 900; letter-spacing: .04em; color: var(--c); white-space: nowrap; }
-.pola .back { transform: rotateY(180deg); background: var(--t); padding: 9px 8px 7px; gap: 4px; border: 2px dashed color-mix(in srgb, var(--c) 30%, transparent); }
-.pola .back h4 { font-size: 11px; font-weight: 900; color: var(--c); }
-.pola .back ul { list-style: none; padding: 0; display: grid; gap: 3px; font-size: 9px; font-weight: 700; color: var(--ink); line-height: 1.25; }
-.pola .back li::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--c); margin-right: 4px; vertical-align: 1px; }
-.pola .more { margin-top: auto; align-self: flex-end; font-size: 9px; font-weight: 900; color: #fff; background: var(--c); border-radius: 8px; padding: 3px 7px; }
-.pola.locked .ph { filter: grayscale(1); opacity: .6; }
+/* ---------- collectible cards (图鉴): ticket / scallop / stamp, square ---------- */
+.card-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 10px; }
+.pola { --edge: #fff; --panel: #e3edff; --fg: #0f1b3d; --sub: #6b7385; --ic: #1f4fd8; --badge: #fff;
+  aspect-ratio: 1; perspective: 800px; cursor: pointer; animation: rise .35s both; -webkit-tap-highlight-color: transparent; }
+.pola .inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.3, 1.25, .5, 1); }
+.pola.flipped .inner { transform: rotateY(180deg); }
+.pola .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex;
+  filter: drop-shadow(0 12px 12px rgba(15, 27, 61, .16)) drop-shadow(0 2px 3px rgba(15, 27, 61, .1)); }
+.pola .back { transform: rotateY(180deg); }
+.pola .shape { flex: 1; min-width: 0; background: var(--edge); padding: 6px; display: flex; }
+.pola .panel { flex: 1; min-width: 0; border-radius: 7px; background: var(--panel); color: var(--fg); position: relative; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; padding: 8px 4px 5px; text-align: center; }
+.pola .panel::before { content: ""; position: absolute; inset: 0; opacity: .5; pointer-events: none;
+  background: radial-gradient(circle at 50% 56%, transparent 0 22%, color-mix(in srgb, var(--fg) 14%, transparent) 22.5% 23.5%, transparent 24% 40%, color-mix(in srgb, var(--fg) 10%, transparent) 40.5% 41.5%, transparent 42%); }
+.pola .name { font-size: 10px; font-weight: 900; letter-spacing: .04em; line-height: 1.1; position: relative; }
+.pola .sub { font-size: 5.5px; letter-spacing: .14em; color: var(--sub); margin-top: 2px; position: relative; }
+.pola .ph { flex: 1; display: grid; place-items: center; color: var(--ic); position: relative; }
+.pola .ph .ic { width: 28px; height: 28px; opacity: .9; }
+.pola .date { font-size: 7px; font-weight: 900; letter-spacing: .06em; position: relative; }
+.pola .badge { position: absolute; top: -7px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; border-radius: 50%; z-index: 2;
+  background: var(--badge); color: var(--fg); font-size: 8px; font-weight: 900; display: grid; place-items: center; box-shadow: 0 0 0 2px var(--edge); }
+.pola .back .panel { align-items: flex-start; padding: 10px 8px 6px; }
+.pola .back h4 { font-size: 11px; font-weight: 900; position: relative; margin-bottom: 4px; }
+.pola .back ul { list-style: none; padding: 0; display: grid; gap: 3px; font-size: 9px; font-weight: 700; text-align: left; position: relative; }
+.pola .back li::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--ic); margin-right: 4px; vertical-align: 1px; }
+.pola .more { margin-top: auto; align-self: flex-end; font-size: 8px; font-weight: 900; background: var(--ic); color: var(--edge); border-radius: 8px; padding: 2px 6px; position: relative; }
+
+/* edge shapes: holes cut out with radial-gradient masks */
+.pola .shape { -webkit-mask-composite: source-in, source-in, source-in; mask-composite: intersect, intersect, intersect; mask-repeat: round, round, round, round; }
+.v-stamp .shape { --r: 3px; border-radius: 3px;
+  -webkit-mask-image: radial-gradient(circle var(--r) at 50% 0, #0000 97%, #000), radial-gradient(circle var(--r) at 50% 100%, #0000 97%, #000), radial-gradient(circle var(--r) at 0 50%, #0000 97%, #000), radial-gradient(circle var(--r) at 100% 50%, #0000 97%, #000);
+          mask-image: radial-gradient(circle var(--r) at 50% 0, #0000 97%, #000), radial-gradient(circle var(--r) at 50% 100%, #0000 97%, #000), radial-gradient(circle var(--r) at 0 50%, #0000 97%, #000), radial-gradient(circle var(--r) at 100% 50%, #0000 97%, #000);
+  -webkit-mask-size: 9px 100%, 9px 100%, 100% 9px, 100% 9px; mask-size: 9px 100%, 9px 100%, 100% 9px, 100% 9px; }
+.v-scallop .shape { --r: 6px; border-radius: 12px;
+  -webkit-mask-image: radial-gradient(circle var(--r) at 50% 0, #0000 97%, #000), radial-gradient(circle var(--r) at 50% 100%, #0000 97%, #000), radial-gradient(circle var(--r) at 0 50%, #0000 97%, #000), radial-gradient(circle var(--r) at 100% 50%, #0000 97%, #000);
+          mask-image: radial-gradient(circle var(--r) at 50% 0, #0000 97%, #000), radial-gradient(circle var(--r) at 50% 100%, #0000 97%, #000), radial-gradient(circle var(--r) at 0 50%, #0000 97%, #000), radial-gradient(circle var(--r) at 100% 50%, #0000 97%, #000);
+  -webkit-mask-size: 15px 100%, 15px 100%, 100% 15px, 100% 15px; mask-size: 15px 100%, 15px 100%, 100% 15px, 100% 15px; }
+.v-ticket .shape { border-radius: 12px;
+  -webkit-mask-image: radial-gradient(circle 8px at 0 56%, #0000 97%, #000), radial-gradient(circle 8px at 100% 56%, #0000 97%, #000), radial-gradient(circle 6px at 50% 0, #0000 97%, #000), radial-gradient(circle 6px at 50% 100%, #0000 97%, #000);
+          mask-image: radial-gradient(circle 8px at 0 56%, #0000 97%, #000), radial-gradient(circle 8px at 100% 56%, #0000 97%, #000), radial-gradient(circle 6px at 50% 0, #0000 97%, #000), radial-gradient(circle 6px at 50% 100%, #0000 97%, #000);
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+
+/* colourways, one per title */
+.c-sky { --edge: #fff; --panel: linear-gradient(160deg, #8fd0ff, #3d9bff); --fg: #fff; --sub: rgba(255, 255, 255, .8); --ic: #fff; --badge: #fff; }
+.c-sky .badge { color: #2a8cf0; }
+.c-ink { --edge: #0c0c0e; --panel: linear-gradient(180deg, #232327, #131316); --fg: #fff; --sub: rgba(255, 255, 255, .55); --ic: #fff; --badge: #0c0c0e; }
+.c-ink .more { color: #0c0c0e; }
+.c-paper { --edge: #f6f6f7; --panel: #fff; --fg: #111; --sub: #8b8f99; --ic: #111; --badge: #fff; }
+.c-leaf { --edge: #19b36b; --panel: linear-gradient(160deg, #5fe0a3, #12985b); --fg: #fff; --sub: rgba(255, 255, 255, .8); --ic: #fff; --badge: #19b36b; }
+.c-leaf .badge { color: #fff; }
+.c-coral { --edge: #fff; --panel: linear-gradient(160deg, #ff9a86, #ef4b3a); --fg: #fff; --sub: rgba(255, 255, 255, .85); --ic: #fff; --badge: #fff; }
+.c-coral .badge { color: #ef4b3a; }
+.pola.locked .face { filter: grayscale(1) opacity(.55) drop-shadow(0 8px 8px rgba(15, 27, 61, .12)); }
