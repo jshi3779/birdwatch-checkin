@@ -17,7 +17,6 @@
     { name: "城市挚友", cat: "鸟类卡收集", done: false },
     { name: "城市挚友", cat: "鸟类卡收集", done: false },
   ];
-  const LOCKED = new Set([4, 5]);
 
   /* ---------- navigation ---------- */
   const screens = $$(".screen");
@@ -98,41 +97,85 @@
   };
 
   /* ---------- cards ---------- */
-  const grid = $("#cardGrid");
-  const CARDS = [
-    { name: "生态循环", shape: "ticket",  color: "sky",   funcs: ["识别鸟类", "记录足迹", "解锁成就"] },
-    { name: "候鸟迁徙", shape: "scallop", color: "ink",   funcs: ["迁徙路线", "季节提醒", "分享打卡"] },
-    { name: "湿地守望", shape: "stamp",   color: "paper", funcs: ["水质监测", "栖息地图", "守护任务"] },
-    { name: "林间歌者", shape: "scallop", color: "leaf",  funcs: ["鸣声识别", "录音收藏", "声谱对比"] },
-    { name: "城市挚友", shape: "ticket",  color: "coral", funcs: ["城市观鸟", "好友同行", "每日挑战"] },
-    { name: "未解锁",   shape: "stamp",   color: "paper", funcs: ["???", "???", "???"] },
-  ];
-  CARDS.forEach((c, i) => {
-    const locked = LOCKED.has(i);
-    const d = document.createElement("div");
-    d.className = `pola v-${c.shape} c-${c.color}` + (locked ? " locked" : "");
-    d.tabIndex = 0; d.setAttribute("role", "button"); d.setAttribute("aria-label", c.name);
-    d.style.animationDelay = i * 60 + "ms";
-    const no = String(i + 1).padStart(2, "0");
-    d.innerHTML = `<div class="inner">
-      <div class="face front"><div class="shape"><div class="panel">
-        <span class="name">${c.name}</span><span class="sub">道具卡</span>
-        <div class="ph"><svg class="ic"><use href="#i-image"/></svg></div>
-        <span class="date">NO.${no}</span></div></div><span class="badge">#${i + 1}</span></div>
-      <div class="face back"><div class="shape"><div class="panel">
-        <h4>功能</h4><ul>${c.funcs.map(f => "<li>" + f + "</li>").join("")}</ul>
-        ${locked ? "" : '<span class="more" data-more>详情 ›</span>'}</div></div></div>
-    </div>`;
-    const flip = () => d.classList.toggle("flipped");
-    d.addEventListener("click", e => e.target.closest("[data-more]") ? show("detail") : flip());
-    d.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
-    grid.appendChild(d);
-  });
+const grid = $("#cardGrid");
+  /* One page (6 cards) per board. Names and facts come from the 《森羽特工》 design doc. */
+  const BOARDS = {
+    habitat: { label: "栖息地卡", back: "特色", cards: [
+      { name: "蟒山森林公园", funcs: ["青山为屏", "林鸟丰富", "灰喜鹊啄木鸟"] },
+      { name: "沙河水库", funcs: ["346种鸟类", "观鸟天堂", "飞鸟集公园"] },
+      { name: "十三陵水库", funcs: ["碧波荡漾", "珍稀鸟现身", "黑鹳鹈鹕"] },
+      { name: "白浮泉公园", funcs: ["观鸟基地", "约30种鸟", "水面广阔"] },
+      { name: "滨河森林公园", funcs: ["京北湿地", "黑翅长脚鹬", "休闲健身"] },
+      { name: "三角地公园", funcs: ["街心花园", "北红尾鸲", "灵感来源"] },
+    ] },
+    bird: { label: "鸟类卡", back: "简介", cards: [
+      { name: "红隼", funcs: ["国家二级", "空中悬停", "捕食鼠类"] },
+      { name: "鹗", funcs: ["国家二级", "白头黑带", "以鱼为食"] },
+      { name: "黑翅长脚鹬", funcs: ["红腿娘子", "粉红长腿", "浅水涉禽"] },
+      { name: "北红尾鸲", funcs: ["配色艳丽", "较为罕见", "三角地常客"] },
+      { name: "黑鹳", funcs: ["国家一级", "十三陵现身", "珍稀候鸟"] },
+      { name: "卷羽鹈鹕", funcs: ["国家一级", "冬季来访", "水库稀客"] },
+    ] },
+    crisis: { label: "生态危机", back: "威胁", cards: [
+      { name: "塑料山", funcs: ["环境污染", "人为压力", "清理任务"] },
+      { name: "毒藻", funcs: ["环境污染", "水质恶化", "需净水鸟类"] },
+      { name: "沙尘暴", funcs: ["自然灾害", "气候驱动", "需植被修复"] },
+      { name: "热浪", funcs: ["自然灾害", "气温骤升", "需水域降温"] },
+      { name: "外来入侵", funcs: ["系统退化", "入侵植物", "清理任务"] },
+      { name: "无声的春天", funcs: ["生物灾害", "虫害蔓延", "需灭虫鸟类"] },
+    ] },
+    tool: { label: "道具卡", back: "功能", cards: [
+      { name: "生态循环", funcs: ["识别鸟类", "记录足迹", "解锁成就"] },
+      { name: "红翅旋壁雀拱门", funcs: ["街景装置", "扫码打卡", "获得食物"] },
+      { name: "长尾山雀排排坐", funcs: ["街景装置", "扫码打卡", "获得食物"] },
+      { name: "夜鹭矗立", funcs: ["街景装置", "扫码打卡", "获得食物"] },
+      { name: "珠颈斑鸠孵蛋", funcs: ["街景装置", "扫码打卡", "获得食物"] },
+      { name: "望远镜", funcs: ["远距观察", "提高识别", "租赁道具"] },
+    ] },
+  };
+  const LOOKS = [["ticket", "sky"], ["scallop", "ink"], ["stamp", "paper"], ["scallop", "leaf"], ["ticket", "coral"], ["stamp", "paper"]];
+  const BOARD_KEYS = Object.keys(BOARDS);
+
+  function renderCards(key) {
+    const board = BOARDS[key];
+    const off = BOARD_KEYS.indexOf(key);
+    grid.innerHTML = "";
+    board.cards.forEach((c, i) => {
+      const [shape, color] = LOOKS[(i + off) % LOOKS.length];
+      const d = document.createElement("div");
+      d.className = `pola v-${shape} c-${color}`;
+      d.tabIndex = 0; d.setAttribute("role", "button"); d.setAttribute("aria-label", c.name);
+      d.style.animationDelay = i * 60 + "ms";
+      const long = c.name.length > 5 ? " long" : "";
+      d.innerHTML = `<div class="inner">
+        <div class="face front"><div class="shape"><div class="panel">
+          <span class="name${long}">${c.name}</span><span class="sub">${board.label}</span>
+          <div class="ph"><svg class="ic"><use href="#i-image"/></svg></div>
+          <span class="date">NO.${String(i + 1).padStart(2, "0")}</span></div></div><span class="badge">#${i + 1}</span></div>
+        <div class="face back"><div class="shape"><div class="panel">
+          <h4>${board.back}</h4><ul>${c.funcs.map(f => "<li>" + f + "</li>").join("")}</ul>
+          <span class="more" data-more>详情 ›</span></div></div></div>
+      </div>`;
+      const flip = () => d.classList.toggle("flipped");
+      d.addEventListener("click", e => {
+        if (e.target.closest("[data-more]")) {
+          $("#detailTitle").textContent = c.name;
+          $(".big-card .tag").textContent = board.label;
+          show("detail");
+        } else flip();
+      });
+      d.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } });
+      grid.appendChild(d);
+    });
+  }
+  renderCards("tool");
   $("#catRow").addEventListener("click", e => {
     const c = e.target.closest(".cat"); if (!c) return;
     $$("#catRow .cat").forEach(x => x.classList.toggle("is-on", x === c));
+    renderCards(c.dataset.k);
   });
 
+  
   /* ---------- detail ---------- */
   const claim = $("#claimBtn");
   claim.addEventListener("click", () => {
