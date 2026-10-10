@@ -19,4 +19,4 @@ npx http-server .
 ```
 
 ## Style
-"Stamp-collectible" UI: clean white ground, chunky heavy display type, saturated flat tints (blue / red / yellow / green) with light tinted fills, soft blue-tinted shadows and dashed perforation lines. 图鉴 cards are square polaroids; tap to flip and read the function on the back.
+Storybook-crayon UI: warm earthy palette (forest green, mustard, brick red, cream), paper-grain background, wobbly crayon-style outlines (SVG displacement filter), rounded childlike type, gold star stickers and hand-drawn doodles. 图鉴 cards are square collectibles (ticket / scalloped / perforated edges); tap to flip.

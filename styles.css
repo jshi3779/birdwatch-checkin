@@ -362,3 +362,139 @@ h1, h2, h3, h4, .chip, .tag, .go-btn, .claim, .cat, .state, .member span { lette
 .tabbar .fab:active { transform: translateX(-50%) scale(.92) rotate(90deg); }
 
 .pola .name.long { font-size: 8.5px; letter-spacing: 0; }
+/* =====================================================================
+   Storybook-crayon theme (final layer, overrides the stamp theme)
+   forest green / mustard / brick red / cream, wobbly crayon outlines,
+   paper grain, childlike rounded type, gold star stickers
+   ===================================================================== */
+:root {
+  --forest: #2f5d3a; --forest-2: #4a8a54; --mustard: #e3a92b; --brick: #b8452f; --cream: #f6ecd4; --paper: #fbf3df; --ink: #4a3426;
+  --page: #e9dcbc; --sage: #f6ecd4; --mint: #dfe9c9; --ink-soft: #8a6f58; --pine: #2f5d3a;
+  --accent: #b8452f; --sky: #4a8a54; --sun: #f8e4a6; --sun-ink: #a06d00; --green: #3f7a4d;
+  --blue: #2f5d3a; --blue-t: #dfe9c9; --red: #b8452f; --red-t: #f1cfc0; --yel: #e3a92b; --yel-t: #f8e4a6;
+  --grn: #3f7a4d; --grn-t: #d6e6c4; --chip: #efe0bd; --chip-on: #2f5d3a;
+  --sans: "Chalkboard SE", "Marker Felt", "Comic Sans MS", "YouYuan", "幼圆", "Yuanti SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --serif: var(--sans);
+  --hard: 3px 4px 0 rgba(74, 52, 38, .85);
+  --wob: 22px 28px 20px 30px / 28px 20px 30px 22px;
+  --paper-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='4'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .3  0 0 0 0 .16  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  --star: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23fff0a0'/><stop offset='.55' stop-color='%23f0b92a'/><stop offset='1' stop-color='%23c98a00'/></linearGradient></defs><polygon points='20,2.5 25.4,14 38,15.3 28.6,23.7 31.4,36.2 20,29.8 8.6,36.2 11.4,23.7 2,15.3 14.6,14' fill='url(%23g)' stroke='%237a4f00' stroke-width='1.8' stroke-linejoin='round'/><ellipse cx='15' cy='13.5' rx='3.6' ry='1.6' fill='white' opacity='.75' transform='rotate(-35 15 13.5)'/></svg>");
+}
+body { font-family: var(--sans); color: var(--ink); background: var(--paper-grain), linear-gradient(180deg, #f1e4c3, #e6d5ad); }
+button { font-family: inherit; }
+.phone { background: var(--cream); box-shadow: 0 0 0 7px #6b4a35, 0 0 0 10px var(--ink), 0 30px 60px rgba(74, 52, 38, .35); }
+.phone::after { content: ""; position: absolute; inset: 0; z-index: 30; pointer-events: none; background: var(--paper-grain); mix-blend-mode: multiply; opacity: .9; }
+.screen { background: var(--paper-grain), var(--cream); }
+h1, h2, h3, h4 { font-family: var(--sans); }
+.muted, .tag, .sub, .eyebrow, .date { color: var(--ink-soft); }
+
+/* ---- wobbly crayon outlines ---- */
+.round-btn, .back-btn, .chip, .go-btn, .claim, .next-btn, .fab, .mini-avatar, .cat span, .tabbar,
+.spot-card, .task, .progress-card, .member, .medals, .found-card, .big-card, .avatar, .spot-photo {
+  border: 2.5px solid var(--ink); filter: url(#wobble);
+}
+.spot-card, .task, .progress-card, .member, .medals, .found-card, .big-card { border-radius: var(--wob); box-shadow: var(--hard); }
+.round-btn, .back-btn, .next-btn, .mini-avatar, .cat span { border-radius: 16px 20px 15px 21px / 20px 15px 21px 16px; box-shadow: 2px 3px 0 rgba(74, 52, 38, .8); }
+.chip { border-radius: 18px 14px 20px 15px / 15px 20px 14px 18px; box-shadow: 2px 3px 0 rgba(74, 52, 38, .8); background: var(--chip); color: var(--ink); }
+.chip.is-on { background: var(--forest); color: var(--cream); }
+.chip.mint { background: var(--grn-t); color: var(--forest); }
+.chip.sun { background: var(--yel-t); color: var(--sun-ink); }
+.chip.mint.is-on { background: var(--forest-2); color: #fff; }
+.chip.sun.is-on { background: var(--mustard); color: var(--ink); }
+.round-btn, .back-btn { background: var(--paper); color: var(--ink); }
+.go-btn, .claim { background: var(--brick); color: var(--cream); border-radius: 20px 14px 22px 15px / 15px 22px 14px 20px; box-shadow: 3px 4px 0 var(--ink); }
+.claim.done { background: var(--forest-2); box-shadow: 3px 4px 0 var(--ink); }
+.next-btn { background: var(--forest); color: var(--cream); }
+.round-btn.has-dot::after { background: var(--brick); border-color: var(--paper); }
+.avatar, .mini-avatar { background: var(--sun); }
+.avatar { box-shadow: var(--hard); }
+
+/* ---- screens ---- */
+.greet h1 { font-weight: 900; color: var(--ink); }
+.greet h1 em { color: var(--brick); }
+.map-bg { filter: sepia(.55) saturate(.85) hue-rotate(-8deg); }
+.map-tint { background: linear-gradient(180deg, rgba(246, 236, 212, .94) 0, rgba(246, 236, 212, .4) 30%, rgba(246, 236, 212, 0) 60%); }
+.pin .head { background: var(--forest); }
+.pin.is-sel .head { background: var(--brick); }
+.pin .head img { border-color: var(--cream); }
+.pin .ground { background: rgba(74, 52, 38, .22); }
+.spot-card { background: var(--paper); }
+.spot-info h2 { color: var(--ink); }
+.loc .ic { color: var(--brick); }
+.spot-photo { border-color: var(--ink); border-radius: 50%; box-shadow: 2px 3px 0 rgba(74, 52, 38, .8); }
+
+.progress-card { background: var(--forest); color: var(--cream); }
+.ring-bg { stroke: rgba(246, 236, 212, .25); }
+.ring-fg { stroke: var(--mustard); }
+.bird-deco { color: rgba(246, 236, 212, .18); }
+.progress-card::after, .task:not(.doing)::before, .big-card::after, .me-head::after {
+  content: ""; position: absolute; width: 34px; height: 34px; background: var(--star) center/contain no-repeat; transform: rotate(14deg); pointer-events: none; z-index: 2; }
+.progress-card::after { right: 8px; top: -14px; width: 40px; height: 40px; }
+.task:not(.doing)::before { right: 10px; top: -12px; }
+.task { background: var(--grn-t); }
+.task::after { border: 2px dashed rgba(74, 52, 38, .28); border-radius: 17px 22px 16px 24px / 22px 16px 24px 17px; }
+.task.doing { background: var(--yel-t); }
+.task.doing::after { border-color: rgba(74, 52, 38, .28); }
+.task img { border: 2.5px solid var(--ink); }
+.task h3 { color: var(--ink); }
+.task .state { color: var(--forest); }
+.task.doing .state { color: var(--sun-ink); }
+
+.cat { color: var(--ink-soft); }
+.cat:nth-child(1) { --t: #d6e6c4; --c: #3f7a4d; }
+.cat:nth-child(2) { --t: #f8e4a6; --c: #b07d12; }
+.cat:nth-child(3) { --t: #f1cfc0; --c: var(--brick); }
+.cat:nth-child(4) { --t: #e6dcc0; --c: var(--ink); }
+.cat span { background: var(--t); color: var(--c); }
+.cat.is-on { color: var(--ink); }
+.cat.is-on span { background: var(--c); color: var(--cream); box-shadow: 3px 4px 0 var(--ink); transform: translateY(-2px) rotate(-3deg); }
+.sec, .me-head h2 { color: var(--ink); }
+.sec { position: relative; display: inline-block; }
+.sec::after { content: ""; display: block; height: 7px; margin-top: 2px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='8' viewBox='0 0 60 8'><path d='M1 5 Q6 0 11 5 T21 5 T31 5 T41 5 T51 5 T59 4' fill='none' stroke='%23e3a92b' stroke-width='2.4' stroke-linecap='round'/></svg>") left/60px 7px no-repeat; }
+.me-head { position: relative; }
+.me-head::after { right: calc(50% - 74px); top: 4px; width: 38px; height: 38px; }
+.member { background: var(--forest-2); }
+.member img { border: 2.5px solid var(--ink); background: var(--sun); }
+.member.add i { color: var(--forest); border: 2.5px solid var(--ink); }
+.medals { background: var(--sun); }
+.medals img { filter: sepia(1) saturate(3.2) hue-rotate(-38deg) brightness(.78); }
+
+.task-screen::before, .cards-screen::before, .me-screen::before {
+  content: ""; position: absolute; right: 12px; top: 8px; width: 74px; height: 66px; pointer-events: none; opacity: .95;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='74' height='66' viewBox='0 0 74 66'><g fill='none' stroke-linecap='round' stroke-width='3'><circle cx='38' cy='30' r='11' fill='%23f3c75a' stroke='%23b07d12'/><path d='M38 8v6M38 46v6M16 30h6M54 30h6M22 14l4 4M50 42l4 4M54 14l-4 4M26 42l-4 4' stroke='%23b8452f'/><path d='M4 62q8-8 16 0t16 0t16 0t16 0' stroke='%232f5d3a' stroke-width='2.4'/></g></svg>") center/contain no-repeat; }
+.me-screen::before, .cards-screen::before, .task-screen::before { z-index: 0; }
+.scroll { z-index: 1; }
+
+/* ---- tab bar ---- */
+.tabbar { background: var(--forest); border-radius: 30px 26px 31px 27px / 27px 31px 26px 30px; box-shadow: 3px 5px 0 rgba(74, 52, 38, .85); }
+.tabbar button:not(.fab) { color: rgba(246, 236, 212, .7); }
+.tabbar button.is-on { background: var(--mustard); color: var(--ink); border: 2px solid var(--ink); }
+.fab { background: var(--brick); color: var(--cream); border: 2.5px solid var(--ink); box-shadow: 0 0 0 4px var(--cream), 3px 5px 0 4px var(--ink); }
+
+/* ---- scan & detail ---- */
+.found-card { background: var(--paper); }
+.found-card .thumb { background: var(--grn-t); color: var(--forest); border: 2px dashed var(--ink); }
+.found-card h3 { color: var(--ink); }
+.big-card { background: var(--forest); }
+.big-card::after { right: -12px; top: -14px; width: 46px; height: 46px; }
+.big-inner { background: var(--paper); border: 2px dashed rgba(74, 52, 38, .4); }
+.big-inner h2 { color: var(--forest); }
+.big-inner .tag { color: var(--ink-soft); }
+.bar { background: var(--grn-t); } .bar.short { background: var(--yel-t); }
+.func { background: var(--grn-t); border-radius: 18px 22px 17px 23px / 22px 17px 23px 18px; }
+.func h4 { color: var(--forest); }
+.line i { background: var(--forest-2); opacity: 1; } .line b { background: var(--paper); }
+
+/* ---- collectible cards: crayon colourways ---- */
+.pola .face { filter: url(#wobble) drop-shadow(3px 5px 0 rgba(74, 52, 38, .55)); }
+.pola .panel { border: 2px dashed color-mix(in srgb, var(--fg) 45%, transparent); }
+.c-sky   { --edge: #e3a92b; --panel: linear-gradient(160deg, #f9df94, #efc254); --fg: #4a3426; --sub: rgba(74, 52, 38, .7); --ic: #4a3426; }
+.c-ink   { --edge: #2f5d3a; --panel: linear-gradient(160deg, #4a8a54, #2f6b3f); --fg: #fbf3df; --sub: rgba(251, 243, 223, .75); --ic: #fbf3df; }
+.c-paper { --edge: #fbf3df; --panel: #fffaf0; --fg: #4a3426; --sub: #8a6f58; --ic: #b8452f; }
+.c-leaf  { --edge: #8fb87a; --panel: linear-gradient(160deg, #d6e8bc, #bcd89c); --fg: #4a3426; --sub: rgba(74, 52, 38, .7); --ic: #2f5d3a; }
+.c-coral { --edge: #b8452f; --panel: linear-gradient(160deg, #d9694f, #b8452f); --fg: #fbf3df; --sub: rgba(251, 243, 223, .8); --ic: #fbf3df; }
+.c-sky .badge, .c-ink .badge, .c-paper .badge, .c-leaf .badge, .c-coral .badge, .pola .badge {
+  width: 28px; height: 28px; top: -12px; border-radius: 0; background: var(--star) center/contain no-repeat; box-shadow: none; color: #5b3a00; font-size: 8px; padding-top: 2px; }
+.c-ink .more, .c-coral .more { color: var(--ink); background: var(--cream); }
+.pola .more { background: var(--ink); color: var(--cream); }
+.pola .back li::before { background: var(--ic); }
