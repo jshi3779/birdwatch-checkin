@@ -152,3 +152,6 @@
   };
   addEventListener("resize", fit); fit();
 })();
+
+/* icon-only tab bar: keep accessible names */
+document.querySelectorAll("#tabbar button[data-tab]").forEach(b => b.setAttribute("aria-label", b.querySelector("span").textContent));

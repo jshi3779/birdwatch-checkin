@@ -336,3 +336,18 @@ h1, h2, h3, h4, .chip, .tag, .go-btn, .claim, .cat, .state, .member span { lette
 .c-coral { --edge: #fff; --panel: linear-gradient(160deg, #ff9a86, #ef4b3a); --fg: #fff; --sub: rgba(255, 255, 255, .85); --ic: #fff; --badge: #fff; }
 .c-coral .badge { color: #ef4b3a; }
 .pola.locked .face { filter: grayscale(1) opacity(.55) drop-shadow(0 8px 8px rgba(15, 27, 61, .12)); }
+
+/* ---------- floating pill tab bar ---------- */
+.tabbar { left: 16px; right: 88px; bottom: 22px; height: 64px; padding: 8px; align-items: center; justify-content: space-between;
+  background: #111218; border-radius: 32px; box-shadow: 0 16px 30px rgba(15, 27, 61, .35), 0 2px 6px rgba(15, 27, 61, .2); }
+.tabbar::before, .tabbar .gap, .tabbar button:not(.fab) span { display: none; }
+.tabbar button:not(.fab) { width: 48px; height: 48px; border-radius: 50%; color: rgba(255, 255, 255, .6); display: grid; place-items: center; gap: 0;
+  transition: background .25s, color .25s; }
+.tabbar button.is-on { background: #fff; color: #111218; }
+.tabbar button.is-on .ic { color: inherit; transform: none; }
+.tabbar .ic { width: 22px; height: 22px; }
+.tabbar .fab { left: calc(100% + 12px); right: auto; top: 4px; width: 56px; height: 56px; transform: none;
+  box-shadow: 0 14px 24px rgba(31, 79, 216, .4); }
+.tabbar .fab:active { transform: scale(.92) rotate(90deg); }
+.tabbar.hide { transform: translateY(160%); }
+.chip { flex: none; white-space: nowrap; }
