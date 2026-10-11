@@ -22,5 +22,5 @@ npx http-server .
 Storybook-crayon UI: warm earthy palette (forest green, mustard, brick red, cream), paper-grain background, wobbly crayon-style outlines (SVG displacement filter), rounded childlike type, gold star stickers and hand-drawn doodles. 图鉴 cards are square collectibles (ticket / scalloped / perforated edges); tap to flip.
 
 ## Font
-Handwritten Chinese/Latin font **ZCOOL KuaiLe** (SIL OFL 1.1, by 站酷), subset to GB2312 level-1 + project text and bundled in `fonts/`.
-After adding new characters, regenerate with `tools/subset-font.mjs` (needs `npm i subset-font` and the original TTF from google/fonts `ofl/zcoolkuaile`).
+Handwritten marker font **851 GBai 马克笔体**, subset to the characters used in the project and bundled in `fonts/`. The original font is free for personal use only; check its licence before any commercial use.
+After adding new characters, regenerate with `node tools/subset-font.mjs <font.ttf> fonts/851Marker-subset.woff2` (needs `npm i subset-font`; `FULL=1` also adds 3755 common hanzi).

@@ -500,8 +500,8 @@ h1, h2, h3, h4 { font-family: var(--sans); }
 .pola .back li::before { background: var(--ic); }
 
 /* ---------- handwritten font: ZCOOL KuaiLe (OFL), subset to GB2312 level 1 + project text ---------- */
-@font-face { font-family: "ZCOOL KuaiLe"; src: url(fonts/ZCOOLKuaiLe-subset.woff2) format("woff2"); font-display: swap; }
-:root { --sans: "ZCOOL KuaiLe", "Chalkboard SE", "Marker Felt", "Comic Sans MS", "YouYuan", "幼圆", "Yuanti SC", "PingFang SC", "Microsoft YaHei", sans-serif; --serif: var(--sans); }
+@font-face { font-family: "851 GBai Marker"; src: url(fonts/851Marker-subset.woff2) format("woff2"); font-display: swap; }
+:root { --sans: "851 GBai Marker", "Chalkboard SE", "Marker Felt", "Comic Sans MS", "YouYuan", "幼圆", "Yuanti SC", "PingFang SC", "Microsoft YaHei", sans-serif; --serif: var(--sans); }
 body { font-synthesis: none; }
 .progress-card .eyebrow, .progress-card .sub { color: var(--cream); opacity: .85; }
 
