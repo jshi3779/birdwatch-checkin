@@ -504,3 +504,7 @@ h1, h2, h3, h4 { font-family: var(--sans); }
 :root { --sans: "ZCOOL KuaiLe", "Chalkboard SE", "Marker Felt", "Comic Sans MS", "YouYuan", "幼圆", "Yuanti SC", "PingFang SC", "Microsoft YaHei", sans-serif; --serif: var(--sans); }
 body { font-synthesis: none; }
 .progress-card .eyebrow, .progress-card .sub { color: var(--cream); opacity: .85; }
+
+/* category icons: Figma "栖息地卡 / 鸟类卡 / 生态危机 / 道具卡" glyphs, recoloured via mask */
+.figma-ic { display: block; width: 30px; height: 30px; background: currentColor;
+  -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
