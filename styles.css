@@ -391,7 +391,7 @@ h1, h2, h3, h4 { font-family: var(--sans); }
 /* ---- wobbly crayon outlines ---- */
 .round-btn, .back-btn, .chip, .go-btn, .claim, .next-btn, .fab, .mini-avatar, .cat span, .tabbar,
 .spot-card, .task, .progress-card, .member, .medals, .found-card, .big-card, .avatar, .spot-photo {
-  border: 2.5px solid var(--ink); filter: url(#wobble);
+  border: 3px solid var(--ink); filter: url(#wobble);
 }
 .spot-card, .task, .progress-card, .member, .medals, .found-card, .big-card { border-radius: var(--wob); box-shadow: var(--hard); }
 .round-btn, .back-btn, .next-btn, .mini-avatar, .cat span { border-radius: 16px 20px 15px 21px / 20px 15px 21px 16px; box-shadow: 2px 3px 0 rgba(74, 52, 38, .8); }
